@@ -43,7 +43,16 @@ def train(data, num_estimators, isDataFrame=False):
     pipe = Pipeline(
         [
             ("scaler", StandardScaler()),
-            ("LR", LogisticRegression(random_state=0, max_iter=num_estimators)),
+            (
+                "LR",
+                LogisticRegression(
+                    random_state=0,
+                    max_iter=1000,
+                    solver="saga",
+                    C=0.1,
+                    class_weight="balanced",
+                ),
+            ),
         ]
     )
 
