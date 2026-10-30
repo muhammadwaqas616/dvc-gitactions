@@ -43,15 +43,7 @@ def train(data, num_estimators, isDataFrame=False):
     pipe = Pipeline(
         [
             ("scaler", StandardScaler()),
-            (
-                "RFC",
-                RandomForestClassifier(
-                    criterion="gini",
-                    max_depth=10,
-                    max_features="auto",
-                    n_estimators=num_estimators,
-                ),
-            ),
+            ("LR", LogisticRegression(random_state=0, max_iter=num_estimators)),
         ]
     )
 
@@ -136,7 +128,7 @@ def evaluate(data, pipeline, OUTPUT_PATH, isDataFrame=False):
         logs["roc_curve"]["model_fpr"],
         logs["roc_curve"]["model_tpr"],
         marker=".",
-        label="RFC",
+        label="LR",
     )
     # axis labels
     plt.xlabel("False Positive Rate")
